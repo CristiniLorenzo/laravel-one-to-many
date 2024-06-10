@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use App\Models\Type;
 
 class ProjectController extends Controller
 {
@@ -74,7 +75,7 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         // $project = Project::findOrFail($id);
-        // dd($project);
+        // dd($project->type);
         $data = [
             'project' => $project
         ];
