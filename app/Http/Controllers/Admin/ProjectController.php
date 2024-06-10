@@ -34,8 +34,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        // dd('create');
-        return view('admin.projects.create');    
+        $types = Type::all();
+        // dd($types);
+        return view('admin.projects.create', compact('types'));    
     }
 
     /**
@@ -50,7 +51,8 @@ class ProjectController extends Controller
             [
                 'name'=> 'required|min:4|max:100|unique:projects,name',
                 'client_name'=> 'required|min:1|max:100',
-                'summary'=> 'nullable|min:5'
+                'summary'=> 'nullable|min:5',
+                'type_id'=> 'nullables|exists:types,id'
             ]
         );
 
@@ -96,7 +98,8 @@ class ProjectController extends Controller
             'project' => $project
         ];
 
-        return view('admin.projects.edit', $data);
+        $types = Type::all();
+        return view('admin.projects.edit', $data, compact('types'));
     }
 
     /**
@@ -120,7 +123,8 @@ class ProjectController extends Controller
                     Rule::unique('projects')->ignore($project)
                 ],
                 'client_name'=> 'required|min:1|max:100',
-                'summary'=> 'nullable|min:5'
+                'summary'=> 'nullable|min:5',
+                'type_id'=> 'nullables|exists:types,id'
             ]
         );
 
